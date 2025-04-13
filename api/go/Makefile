@@ -2,7 +2,7 @@
 
 PROTOC_ARGS := -I=../proto --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative
 
-all: requirements common gw api integration stream
+all: requirements common gw bs api integration stream
 
 common:
 	protoc ${PROTOC_ARGS} common/common.proto
