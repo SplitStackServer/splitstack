@@ -1,14 +1,20 @@
-.PHONY: requirements common gw api integration stream
+.PHONY: requirements common gw bs api integration stream
 
 PROTOC_ARGS := -I=../proto --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative
 
-all: requirements common gw api integration stream
+all: requirements common gw bs api integration stream
 
 common:
 	protoc ${PROTOC_ARGS} common/common.proto
 
 gw:
 	protoc ${PROTOC_ARGS} gw/gw.proto
+
+bs:
+	protoc ${PROTOC_ARGS} bs/endnode.proto
+	protoc ${PROTOC_ARGS} bs/basestation.proto
+	protoc ${PROTOC_ARGS} bs/cmd.proto
+	protoc ${PROTOC_ARGS} bs/rsp.proto
 
 api:
 	protoc ${PROTOC_ARGS} api/internal.proto

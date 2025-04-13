@@ -1,18 +1,19 @@
-module github.com/chirpstack/chirpstack/api/go/v4
+module github.com/SplitStackServer/splitstack/api/go/v4
 
-go 1.21
+go 1.23.5
+
 toolchain go1.24.1
 
 require (
-	google.golang.org/genproto/googleapis/api v0.0.0-20240325203815-454cdb8f5daa
-	google.golang.org/grpc v1.62.1
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/genproto/googleapis/api v0.0.0-20250409194420-de1ac958c67a
+	google.golang.org/grpc v1.71.1
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
 	github.com/golang/protobuf v1.5.4 // indirect
-	golang.org/x/net v0.36.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240325203815-454cdb8f5daa // indirect
+	golang.org/x/net v0.39.0 // indirect
+	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/text v0.24.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250409194420-de1ac958c67a // indirect
 )
