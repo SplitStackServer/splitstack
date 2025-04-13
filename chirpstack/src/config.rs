@@ -22,6 +22,7 @@ pub struct Configuration {
     pub sqlite: Sqlite,
     pub api: Api,
     pub gateway: Gateway,
+    pub basestation: Basestation,
     pub network: Network,
     pub monitoring: Monitoring,
     pub integration: Integration,
@@ -143,6 +144,30 @@ pub struct Gateway {
 impl Default for Gateway {
     fn default() -> Self {
         Gateway {
+            client_cert_lifetime: Duration::from_secs(60 * 60 * 24 * 365),
+            ca_cert: "".to_string(),
+            ca_key: "".to_string(),
+            allow_unknown_gateways: false,
+        }
+    }
+}
+
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(default)]
+pub struct Basestation {
+    pub enable: bool,
+    #[serde(with = "humantime_serde")]
+    pub client_cert_lifetime: Duration,
+    pub ca_cert: String,
+    pub ca_key: String,
+    pub allow_unknown_gateways: bool,
+}
+
+impl Default for Basestation {
+    fn default() -> Self {
+        Basestation {
+            enable: false,
             client_cert_lifetime: Duration::from_secs(60 * 60 * 24 * 365),
             ca_cert: "".to_string(),
             ca_key: "".to_string(),
