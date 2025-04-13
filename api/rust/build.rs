@@ -11,6 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     std::fs::create_dir_all(out_dir.join("common")).unwrap();
     std::fs::create_dir_all(out_dir.join("gw")).unwrap();
+    std::fs::create_dir_all(out_dir.join("bs")).unwrap();
     std::fs::create_dir_all(out_dir.join("internal")).unwrap();
     std::fs::create_dir_all(out_dir.join("integration")).unwrap();
     std::fs::create_dir_all(out_dir.join("stream")).unwrap();
@@ -55,6 +56,37 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .extern_path(".common", "crate::common")
         .compile_protos(
             &[cs_dir.join("gw").join("gw.proto").to_str().unwrap()],
+            &[
+                proto_dir.join("chirpstack").to_str().unwrap(),
+                proto_dir.join("google").to_str().unwrap(),
+            ],
+        )?;
+
+    #[cfg(feature = "json")]
+    {
+        let descriptor_set = std::fs::read(out_dir.join("gw").join("proto_descriptor.bin"))?;
+        pbjson_build::Builder::new()
+            .register_descriptors(&descriptor_set)?
+            .ignore_unknown_fields()
+            .out_dir(out_dir.join("gw"))
+            .extern_path(".common", "crate::common")
+            .build(&[".gw"])?;
+    }
+
+    // bs (mioty)
+    tonic_build::configure()
+        .out_dir(out_dir.join("bs"))
+        .file_descriptor_set_path(out_dir.join("bs").join("proto_descriptor.bin"))
+        .compile_well_known_types(true)
+        .extern_path(".google.protobuf", well_known_types_path)
+        .extern_path(".common", "crate::common")
+        .compile_protos(
+            &[
+                cs_dir.join("bs").join("basestation.proto").to_str().unwrap(),
+                cs_dir.join("bs").join("cmd.proto").to_str().unwrap(),
+                cs_dir.join("bs").join("endnode.proto").to_str().unwrap(),
+                cs_dir.join("bs").join("rsp.proto").to_str().unwrap()
+            ],
             &[
                 proto_dir.join("chirpstack").to_str().unwrap(),
                 proto_dir.join("google").to_str().unwrap(),
