@@ -1,6 +1,6 @@
 module github.com/chirpstack/chirpstack/api/go/v4
 
-go 1.21
+go 1.23.5
 toolchain go1.24.1
 
 require (
