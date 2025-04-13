@@ -2,13 +2,13 @@ syntax = "proto3";
 
 package bs;
 
-option go_package = "github.com/SplitStackServer/splitstack/api/go/v4/bs";
-option java_package = "io.splitstack.api.bs";
+option go_package = "github.com/chirpstack/splitstack/api/go/v4/bs";
+option java_package = "io.chirpstack.api.bs";
 option java_multiple_files = true;
 option java_outer_classname = "BasestationProto";
-option csharp_namespace = "SplitStackServer.Basestation";
-option php_namespace = "SplitStackServer\\Basestation";
-option php_metadata_namespace = "GPBMetadata\\SplitStackServer\\Basestation";
+option csharp_namespace = "Chirpstack.Basestation";
+option php_namespace = "Chirpstack\\Basestation";
+option php_metadata_namespace = "GPBMetadata\\Chirpstack\\Basestation";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
