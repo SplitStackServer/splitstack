@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package bs;
+
+option go_package = "github.com/SplitStackServer/splitstack/api/go/v4/bs";
+option java_package = "io.splitstack.api.bs";
+option java_multiple_files = true;
+option java_outer_classname = "BasestationProto";
+option csharp_namespace = "SplitStackServer.Basestation";
+option php_namespace = "SplitStackServer\\Basestation";
+option php_metadata_namespace = "GPBMetadata\\SplitStackServer\\Basestation";
+
+import "google/protobuf/timestamp.proto";
+
+enum ConnectionState {
+    OFFLINE = 0;
+    ONLINE = 1;
+}
+
+message ProtoBasestationState{
+    // Basestation EUI, hex string
+    string bs_eui = 1;
+    // ConnectionState
+    ConnectionState state = 2;
+}
+
+
+message ProtoBasestationMessage {
+    // Basestation EUI, hex string
+    string bs_eui = 1;
+    // Message.
+    oneof v1 {
+        // Connect
+        BasestationConnection con = 3;
+        // Status
+        BasestationStatus status = 4;
+        // VM Status
+        BasestationVariableMacStatus vm_status = 5;
+    }
+}
+
+// Connect
+message BasestationConnection {
+    // Unix UTC system time
+    google.protobuf.Timestamp ts = 2;
+    // Requested protocol version, major.minor.patch
+    string version = 3;
+    // True if Base Station is bidirectional
+    bool bidi = 4;
+    // Vendor of the Base Station, optional
+    optional string vendor = 5;
+    // Model of the Base Station, optional
+    optional string model = 6;
+    // Name of the Base Station, optional
+    optional string name = 7;
+    // Software version, optional
+    optional string sw_version = 8;
+}
+
+// Status
+message BasestationStatus {
+    // Status code, using POSIX error numbers, 0 for ok
+    uint32 status_code = 2;
+    // Status message
+    string status_msg = 3;
+    // Unix UTC system time
+    google.protobuf.Timestamp ts = 4;
+    // Fraction of TX time, sliding window over one hour
+    float duty_cycle = 5;
+    // Geographic location [Latitude, Longitude, Altitude], optional
+    optional GeoLocation geo_location = 6;
+    // System uptime in seconds, optional
+    optional uint64 uptime = 7;
+    // System temperature in degree Celsius, optional
+    optional double temp = 8;
+    // CPU utilization, normalized to 1.0 for all cores, optional
+    optional double cpu = 9;
+    // Memory utilization, normalized to 1.0, optional
+    optional double memory = 10;
+}
+
+message GeoLocation {
+    float lat = 1;
+    float lon = 2;
+    float alt = 3;
+}
+
+// The VM Status represents a list of the activated MAC-Types.
+message BasestationVariableMacStatus{
+    // List of activated macTypes
+    repeated int64 mac_types = 2;
+}

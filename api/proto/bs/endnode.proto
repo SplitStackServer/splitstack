@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+package bs;
+
+option go_package = "github.com/SplitStackServer/splitstack/api/go/v4/bs";
+option java_package = "io.splitstack.api.bs";
+option java_multiple_files = true;
+option java_outer_classname = "BasestationProto";
+option csharp_namespace = "SplitStackServer.Basestation";
+option php_namespace = "SplitStackServer\\Basestation";
+option php_metadata_namespace = "GPBMetadata\\SplitStackServer\\Basestation";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+message ProtoEndnodeMessage {
+    // Basestation EUI, hex string
+    string bs_eui = 1;
+    // Endnode EUI, hex string
+    string endnode_eui = 2;
+
+    // Message.
+    oneof v1 {
+        // Over the air attachment
+        EndnodeAttMessage att = 4;
+        // Over the air detachment
+        EndnodeDetMessage det = 5;
+        // Uplink payload
+        EndnodeUlDataMessage ul_data = 6;
+        // Downlink RX Status
+        EndnodeDownlinkRxStatus dl_rx_stat = 7;
+        // Downlink result
+        EndnodeDownlinkResult dl_res = 8;
+        // Variable Mac Uplink Payload
+        EndnodeVariableMacUlDataMessage vm_ul_data = 9;
+    }
+}
+
+message EndnodeAttMessage {
+    // ID of the operation
+    int64 op_id = 1;
+
+    // Attachment_cnt counter.
+    uint32 attachment_cnt = 2;
+
+    // End Point nonce, 4 bytes little endian
+    uint32 nonce = 3;
+
+    // End Point signature, 4 bytes little endian
+    uint32 sign = 4;
+
+    // End Point short address, only if assigned by the Base Station, 2 bytes little endian
+    optional uint32 sh_addr = 5;
+
+    // Metadata.
+    EndnodeUplinkMetadata meta = 6;
+
+    // True if End Point uses dual channel mode
+    bool dual_channel = 7;
+
+    // True if End Point uses DL repetition
+    bool repetition = 8;
+
+    // True if End Point uses wide carrier offset
+    bool wide_carr_off = 9;
+
+    // True if End Point uses long DL interblock distance
+    bool long_blk_dist = 10;
+}
+
+message EndnodeDetMessage {
+    // ID of the operation
+    int64 op_id = 1;
+    // End Point signature , 4 bytes little endian
+    uint32 sign = 2;
+    // Metadata.
+    EndnodeUplinkMetadata meta = 3;
+}
+
+message EndnodeUlDataMessage {
+    // End Point user data, might be empty
+    bytes data = 1;
+    // MPF header byte, 1 byte
+    uint32 format = 2;
+    // mioty Mode. (Optional)
+    optional string mode = 3;
+    // Metadata.
+    EndnodeUplinkMetadata meta = 4;
+    // True if End Point downlink window is opened
+    bool dl_open = 5;
+    // True if End Point acknowledges the reception of a DL transmission in the last DL window (packetCnt - 1)
+    bool dl_ack = 6;
+}
+
+message EndnodeDownlinkRxStatus {
+    // Basestation RX time.
+    google.protobuf.Timestamp rx_time = 1;
+    // Packet counter.
+    uint32 packet_cnt = 2;
+    // RSSI.
+    double dl_rx_rssi = 3;
+    // SNR.
+    double dl_rx_snr = 4;
+}
+
+message EndnodeUplinkMetadata {
+    // Basestation RX time.
+    google.protobuf.Timestamp rx_time = 1;
+    // Duration of the reception. (Optional)
+    optional google.protobuf.Duration rx_duration = 2;
+    // Packet counter.
+    uint32 packet_cnt = 3;
+    // Profile. (Optional)
+    optional string profile = 4;
+    // RSSI.
+    double rssi = 5;
+    // SNR.
+    double snr = 6;
+    // AWGN equivalent reception SNR. (Optional)
+    optional double eq_snr = 7;
+    // Reception info for every subpacket. (Optional)
+    repeated EndnodeUplinkSubpacket subpacket_info = 8;
+}
+
+message EndnodeUplinkSubpacket {
+    // Subpacket signal to noise ratio in dB.
+    int32 snr = 1;
+
+    // Subpacket signal strength in dBm.
+    int32 rssi = 2;
+
+    // Subpacket frequencies in Hz.
+    int32 frequency = 3;
+
+    // Subpacket phases in degree +-180. (Optional)
+    optional int32 phase = 4;
+}
+
+enum DownlinkResultEnum {
+    SENT = 0;
+    EXPIRED = 1;
+    INVALID = 2;
+}
+
+message EndnodeDownlinkResult {
+    // Assigned queue ID for reference
+    uint64 dl_que_id = 3; 
+    // Result of the downlink
+    DownlinkResultEnum result = 4;
+    // Unix UTC time of transmission, center of first subpacket, 64 bit, ns resolution, only if result is sent
+    google.protobuf.Timestamp tx_time = 5;
+    // End Point packet counter, only if result is “sent”
+    uint32 ep_packet_cnt = 6;
+}
+
+enum CarrierSpacingEnum {
+    NARROW = 0;
+    STANDARD = 1;
+    WIDE = 2;
+}
+
+enum TsmaPatternGroupEnum {
+    NORMAL = 0;
+    REPETITION = 1;
+    LOW_DELAY = 2;
+}
+
+
+message EndnodeVariableMacUlDataMessage {
+    // n Byte End Point user data U-MPDU; starting with first byte after MAC-Type
+    bytes data = 1;
+    // MAC-Type of Variable MAC, 1 byte
+    int64 macType = 2;
+    // Metadata.
+    EndnodeUplinkMetadata meta = 4;
+    // Frequency offset from center between primary and secondary channel in Hz 
+    double freq_off = 5;
+    // Carrier spacing step size Bc, 0 = narrow, 1 = standard, 2 = wide
+    CarrierSpacingEnum carr_space = 6;
+    // Uplink TSMA Pattern group, 0 = normal, 1 = repetition, 2 = low delay
+    TsmaPatternGroupEnum patt_grp = 7;
+    // Uplink TSMA Pattern number p
+    uint32 patt_num = 8;
+    // Header and payload CRC, crc[0] = header CRC, crc[1] = payload CRC
+    uint64 crc = 9;
+}
