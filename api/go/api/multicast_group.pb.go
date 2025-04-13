@@ -7,7 +7,7 @@
 package api
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -1431,8 +1431,8 @@ const file_api_multicast_group_proto_rawDesc = "" +
 	"\aEnqueue\x12*.api.EnqueueMulticastGroupQueueItemRequest\x1a+.api.EnqueueMulticastGroupQueueItemResponse\"F\x82\xd3\xe4\x93\x02@:\x01*\";/api/multicast-groups/{queue_item.multicast_group_id}/queue\x12\x84\x01\n" +
 	"\n" +
 	"FlushQueue\x12$.api.FlushMulticastGroupQueueRequest\x1a\x16.google.protobuf.Empty\"8\x82\xd3\xe4\x93\x022*0/api/multicast-groups/{multicast_group_id}/queue\x12\x90\x01\n" +
-	"\tListQueue\x12#.api.ListMulticastGroupQueueRequest\x1a$.api.ListMulticastGroupQueueResponse\"8\x82\xd3\xe4\x93\x022\x120/api/multicast-groups/{multicast_group_id}/queueB\x99\x01\n" +
-	"\x11io.chirpstack.apiB\x13MulticastGroupProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\tListQueue\x12#.api.ListMulticastGroupQueueRequest\x1a$.api.ListMulticastGroupQueueResponse\"8\x82\xd3\xe4\x93\x022\x120/api/multicast-groups/{multicast_group_id}/queueB\x9f\x01\n" +
+	"\x11io.chirpstack.apiB\x13MulticastGroupProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_multicast_group_proto_rawDescOnce sync.Once

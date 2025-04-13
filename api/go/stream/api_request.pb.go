@@ -7,8 +7,8 @@
 package stream
 
 import (
-	_ "github.com/chirpstack/chirpstack/api/go/v4/common"
-	_ "github.com/chirpstack/chirpstack/api/go/v4/gw"
+	_ "github.com/SplitStackServer/splitstack/api/go/v4/common"
+	_ "github.com/SplitStackServer/splitstack/api/go/v4/gw"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
@@ -98,8 +98,8 @@ const file_stream_api_request_proto_rawDesc = "" +
 	"\bmetadata\x18\x03 \x03(\v2#.stream.ApiRequestLog.MetadataEntryR\bmetadata\x1a;\n" +
 	"\rMetadataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\xa8\x01\n" +
-	"\x18io.chirpstack.api.streamB\x0fApiRequestProtoP\x01Z1github.com/chirpstack/chirpstack/api/go/v4/stream\xaa\x02\x11Chirpstack.Stream\xca\x02\x11Chirpstack\\Stream\xe2\x02\x1dGPBMetadata\\Chirpstack\\Streamb\x06proto3"
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\xae\x01\n" +
+	"\x18io.chirpstack.api.streamB\x0fApiRequestProtoP\x01Z7github.com/SplitStackServer/splitstack/api/go/v4/stream\xaa\x02\x11Chirpstack.Stream\xca\x02\x11Chirpstack\\Stream\xe2\x02\x1dGPBMetadata\\Chirpstack\\Streamb\x06proto3"
 
 var (
 	file_stream_api_request_proto_rawDescOnce sync.Once

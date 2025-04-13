@@ -7,7 +7,7 @@
 package api
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -2292,8 +2292,8 @@ const file_api_internal_proto_rawDesc = "" +
 	"\vListRegions\x12\x16.google.protobuf.Empty\x1a\x18.api.ListRegionsResponse\"\x00\x12<\n" +
 	"\tGetRegion\x12\x15.api.GetRegionRequest\x1a\x16.api.GetRegionResponse\"\x00\x12?\n" +
 	"\n" +
-	"GetVersion\x12\x16.google.protobuf.Empty\x1a\x17.api.GetVersionResponse\"\x00B\x93\x01\n" +
-	"\x11io.chirpstack.apiB\rInternalProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"GetVersion\x12\x16.google.protobuf.Empty\x1a\x17.api.GetVersionResponse\"\x00B\x99\x01\n" +
+	"\x11io.chirpstack.apiB\rInternalProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_internal_proto_rawDescOnce sync.Once

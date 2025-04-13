@@ -7,7 +7,7 @@
 package api
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -920,8 +920,8 @@ const file_api_device_profile_template_proto_rawDesc = "" +
 	"\x03Get\x12$.api.GetDeviceProfileTemplateRequest\x1a%.api.GetDeviceProfileTemplateResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/api/device-profile-templates/{id}\x12\x90\x01\n" +
 	"\x06Update\x12'.api.UpdateDeviceProfileTemplateRequest\x1a\x16.google.protobuf.Empty\"E\x82\xd3\xe4\x93\x02?:\x01*\x1a:/api/device-profile-templates/{device_profile_template.id}\x12u\n" +
 	"\x06Delete\x12'.api.DeleteDeviceProfileTemplateRequest\x1a\x16.google.protobuf.Empty\"*\x82\xd3\xe4\x93\x02$*\"/api/device-profile-templates/{id}\x12~\n" +
-	"\x04List\x12&.api.ListDeviceProfileTemplatesRequest\x1a'.api.ListDeviceProfileTemplatesResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/api/device-profile-templatesB\xa0\x01\n" +
-	"\x11io.chirpstack.apiB\x1aDeviceProfileTemplateProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\x04List\x12&.api.ListDeviceProfileTemplatesRequest\x1a'.api.ListDeviceProfileTemplatesResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/api/device-profile-templatesB\xa6\x01\n" +
+	"\x11io.chirpstack.apiB\x1aDeviceProfileTemplateProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_device_profile_template_proto_rawDescOnce sync.Once

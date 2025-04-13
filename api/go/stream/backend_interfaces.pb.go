@@ -155,8 +155,8 @@ const file_stream_backend_interfaces_proto_rawDesc = "" +
 	"resultCode\x12!\n" +
 	"\frequest_body\x18\a \x01(\tR\vrequestBody\x12#\n" +
 	"\rrequest_error\x18\b \x01(\tR\frequestError\x12#\n" +
-	"\rresponse_body\x18\t \x01(\tR\fresponseBodyB\xaf\x01\n" +
-	"\x18io.chirpstack.api.streamB\x16BackendInterfacesProtoP\x01Z1github.com/chirpstack/chirpstack/api/go/v4/stream\xaa\x02\x11Chirpstack.Stream\xca\x02\x11Chirpstack\\Stream\xe2\x02\x1dGPBMetadata\\Chirpstack\\Streamb\x06proto3"
+	"\rresponse_body\x18\t \x01(\tR\fresponseBodyB\xb5\x01\n" +
+	"\x18io.chirpstack.api.streamB\x16BackendInterfacesProtoP\x01Z7github.com/SplitStackServer/splitstack/api/go/v4/stream\xaa\x02\x11Chirpstack.Stream\xca\x02\x11Chirpstack\\Stream\xe2\x02\x1dGPBMetadata\\Chirpstack\\Streamb\x06proto3"
 
 var (
 	file_stream_backend_interfaces_proto_rawDescOnce sync.Once

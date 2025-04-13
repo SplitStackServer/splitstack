@@ -7,8 +7,8 @@
 package stream
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
-	gw "github.com/chirpstack/chirpstack/api/go/v4/gw"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
+	gw "github.com/SplitStackServer/splitstack/api/go/v4/gw"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -297,9 +297,9 @@ const file_stream_frame_proto_rawDesc = "" +
 	"\adev_eui\x18\b \x01(\tR\x06devEui\x12(\n" +
 	"\x10plaintext_f_opts\x18\t \x01(\bR\x0eplaintextFOpts\x122\n" +
 	"\x15plaintext_frm_payload\x18\n" +
-	" \x01(\bR\x13plaintextFrmPayloadB\xa3\x01\n" +
+	" \x01(\bR\x13plaintextFrmPayloadB\xa9\x01\n" +
 	"\x18io.chirpstack.api.streamB\n" +
-	"FrameProtoP\x01Z1github.com/chirpstack/chirpstack/api/go/v4/stream\xaa\x02\x11Chirpstack.Stream\xca\x02\x11Chirpstack\\Stream\xe2\x02\x1dGPBMetadata\\Chirpstack\\Streamb\x06proto3"
+	"FrameProtoP\x01Z7github.com/SplitStackServer/splitstack/api/go/v4/stream\xaa\x02\x11Chirpstack.Stream\xca\x02\x11Chirpstack\\Stream\xe2\x02\x1dGPBMetadata\\Chirpstack\\Streamb\x06proto3"
 
 var (
 	file_stream_frame_proto_rawDescOnce sync.Once

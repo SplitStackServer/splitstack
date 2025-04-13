@@ -801,8 +801,8 @@ const file_api_user_proto_rawDesc = "" +
 	"\x06Delete\x12\x16.api.DeleteUserRequest\x1a\x16.google.protobuf.Empty\"\x17\x82\xd3\xe4\x93\x02\x11*\x0f/api/users/{id}\x12I\n" +
 	"\x04List\x12\x15.api.ListUsersRequest\x1a\x16.api.ListUsersResponse\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
 	"/api/users\x12r\n" +
-	"\x0eUpdatePassword\x12\x1e.api.UpdateUserPasswordRequest\x1a\x16.google.protobuf.Empty\"(\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/api/users/{user_id}/passwordB\x8f\x01\n" +
-	"\x11io.chirpstack.apiB\tUserProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\x0eUpdatePassword\x12\x1e.api.UpdateUserPasswordRequest\x1a\x16.google.protobuf.Empty\"(\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/api/users/{user_id}/passwordB\x95\x01\n" +
+	"\x11io.chirpstack.apiB\tUserProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_user_proto_rawDescOnce sync.Once

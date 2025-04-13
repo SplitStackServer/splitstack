@@ -7,7 +7,7 @@
 package api
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -1905,8 +1905,8 @@ const file_api_gateway_proto_rawDesc = "" +
 	"\x0fGetRelayGateway\x12\x1b.api.GetRelayGatewayRequest\x1a\x1c.api.GetRelayGatewayResponse\";\x82\xd3\xe4\x93\x025\x123/api/gateways/relay-gateways/{tenant_id}/{relay_id}\x12x\n" +
 	"\x11ListRelayGateways\x12\x1d.api.ListRelayGatewaysRequest\x1a\x1e.api.ListRelayGatewaysResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/api/gateways/relay-gateways\x12\xa8\x01\n" +
 	"\x12UpdateRelayGateway\x12\x1e.api.UpdateRelayGatewayRequest\x1a\x16.google.protobuf.Empty\"Z\x82\xd3\xe4\x93\x02T:\x01*\x1aO/api/gateways/relay-gateways/{relay_gateway.tenant_id}/{relay_gateway.relay_id}\x12\x89\x01\n" +
-	"\x12DeleteRelayGateway\x12\x1e.api.DeleteRelayGatewayRequest\x1a\x16.google.protobuf.Empty\";\x82\xd3\xe4\x93\x025*3/api/gateways/relay-gateways/{tenant_id}/{relay_id}B\x92\x01\n" +
-	"\x11io.chirpstack.apiB\fGatewayProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\x12DeleteRelayGateway\x12\x1e.api.DeleteRelayGatewayRequest\x1a\x16.google.protobuf.Empty\";\x82\xd3\xe4\x93\x025*3/api/gateways/relay-gateways/{tenant_id}/{relay_id}B\x98\x01\n" +
+	"\x11io.chirpstack.apiB\fGatewayProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_gateway_proto_rawDescOnce sync.Once

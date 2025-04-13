@@ -1380,8 +1380,8 @@ const file_api_tenant_proto_rawDesc = "" +
 	"UpdateUser\x12\x1c.api.UpdateTenantUserRequest\x1a\x16.google.protobuf.Empty\"K\x82\xd3\xe4\x93\x02E:\x01*\x1a@/api/tenants/{tenant_user.tenant_id}/users/{tenant_user.user_id}\x12t\n" +
 	"\n" +
 	"DeleteUser\x12\x1c.api.DeleteTenantUserRequest\x1a\x16.google.protobuf.Empty\"0\x82\xd3\xe4\x93\x02**(/api/tenants/{tenant_id}/users/{user_id}\x12n\n" +
-	"\tListUsers\x12\x1b.api.ListTenantUsersRequest\x1a\x1c.api.ListTenantUsersResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/tenants/{tenant_id}/usersB\x91\x01\n" +
-	"\x11io.chirpstack.apiB\vTenantProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\tListUsers\x12\x1b.api.ListTenantUsersRequest\x1a\x1c.api.ListTenantUsersResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/tenants/{tenant_id}/usersB\x97\x01\n" +
+	"\x11io.chirpstack.apiB\vTenantProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_tenant_proto_rawDescOnce sync.Once

@@ -7,7 +7,7 @@
 package api
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -2648,8 +2648,8 @@ const file_api_device_proto_rawDesc = "" +
 	"\n" +
 	"FlushQueue\x12\x1c.api.FlushDeviceQueueRequest\x1a\x16.google.protobuf.Empty\"$\x82\xd3\xe4\x93\x02\x1e*\x1c/api/devices/{dev_eui}/queue\x12s\n" +
 	"\bGetQueue\x12\x1f.api.GetDeviceQueueItemsRequest\x1a .api.GetDeviceQueueItemsResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/api/devices/{dev_eui}/queue\x12\x8f\x01\n" +
-	"\x0fGetNextFCntDown\x12!.api.GetDeviceNextFCntDownRequest\x1a\".api.GetDeviceNextFCntDownResponse\"5\x82\xd3\xe4\x93\x02/:\x01*\"*/api/devices/{dev_eui}/get-next-f-cnt-downB\x91\x01\n" +
-	"\x11io.chirpstack.apiB\vDeviceProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\x0fGetNextFCntDown\x12!.api.GetDeviceNextFCntDownRequest\x1a\".api.GetDeviceNextFCntDownResponse\"5\x82\xd3\xe4\x93\x02/:\x01*\"*/api/devices/{dev_eui}/get-next-f-cnt-downB\x97\x01\n" +
+	"\x11io.chirpstack.apiB\vDeviceProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_device_proto_rawDescOnce sync.Once

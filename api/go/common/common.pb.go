@@ -1055,8 +1055,8 @@ const file_common_common_proto_rawDesc = "" +
 	"\vDeviceClass\x12\v\n" +
 	"\aCLASS_A\x10\x00\x12\v\n" +
 	"\aCLASS_B\x10\x01\x12\v\n" +
-	"\aCLASS_C\x10\x02B\x9d\x01\n" +
-	"\x11io.chirpstack.apiB\vCommonProtoP\x01Z1github.com/chirpstack/chirpstack/api/go/v4/common\xaa\x02\x11Chirpstack.Common\xca\x02\x11Chirpstack\\Common\xe2\x02\x1dGPBMetadata\\Chirpstack\\Commonb\x06proto3"
+	"\aCLASS_C\x10\x02B\xa3\x01\n" +
+	"\x11io.chirpstack.apiB\vCommonProtoP\x01Z7github.com/SplitStackServer/splitstack/api/go/v4/common\xaa\x02\x11Chirpstack.Common\xca\x02\x11Chirpstack\\Common\xe2\x02\x1dGPBMetadata\\Chirpstack\\Commonb\x06proto3"
 
 var (
 	file_common_common_proto_rawDescOnce sync.Once

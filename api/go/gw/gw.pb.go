@@ -7,7 +7,7 @@
 package gw
 
 import (
-	common "github.com/chirpstack/chirpstack/api/go/v4/common"
+	common "github.com/SplitStackServer/splitstack/api/go/v4/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -3964,8 +3964,8 @@ const file_gw_gw_proto_rawDesc = "" +
 	"QUEUE_FULL\x10\t\x12\x12\n" +
 	"\x0eINTERNAL_ERROR\x10\n" +
 	"\x12\x17\n" +
-	"\x13DUTY_CYCLE_OVERFLOW\x10\vB\xa0\x01\n" +
-	"\x14io.chirpstack.api.gwB\fGatewayProtoP\x01Z-github.com/chirpstack/chirpstack/api/go/v4/gw\xaa\x02\x12Chirpstack.Gateway\xca\x02\x12Chirpstack\\Gateway\xe2\x02\x1eGPBMetadata\\Chirpstack\\Gatewayb\x06proto3"
+	"\x13DUTY_CYCLE_OVERFLOW\x10\vB\xa6\x01\n" +
+	"\x14io.chirpstack.api.gwB\fGatewayProtoP\x01Z3github.com/SplitStackServer/splitstack/api/go/v4/gw\xaa\x02\x12Chirpstack.Gateway\xca\x02\x12Chirpstack\\Gateway\xe2\x02\x1eGPBMetadata\\Chirpstack\\Gatewayb\x06proto3"
 
 var (
 	file_gw_gw_proto_rawDescOnce sync.Once

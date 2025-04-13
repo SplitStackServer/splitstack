@@ -524,9 +524,9 @@ const file_api_relay_proto_rawDesc = "" +
 	"\x04List\x12\x16.api.ListRelaysRequest\x1a\x17.api.ListRelaysResponse\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/api/relays\x12o\n" +
 	"\tAddDevice\x12\x1a.api.AddRelayDeviceRequest\x1a\x16.google.protobuf.Empty\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/relays/{relay_dev_eui}/devices\x12|\n" +
 	"\fRemoveDevice\x12\x1d.api.RemoveRelayDeviceRequest\x1a\x16.google.protobuf.Empty\"5\x82\xd3\xe4\x93\x02/*-/api/relays/{relay_dev_eui}/devices/{dev_eui}\x12w\n" +
-	"\vListDevices\x12\x1c.api.ListRelayDevicesRequest\x1a\x1d.api.ListRelayDevicesResponse\"+\x82\xd3\xe4\x93\x02%\x12#/api/relays/{relay_dev_eui}/devicesB\x90\x01\n" +
+	"\vListDevices\x12\x1c.api.ListRelayDevicesRequest\x1a\x1d.api.ListRelayDevicesResponse\"+\x82\xd3\xe4\x93\x02%\x12#/api/relays/{relay_dev_eui}/devicesB\x96\x01\n" +
 	"\x11io.chirpstack.apiB\n" +
-	"RelayProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"RelayProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_relay_proto_rawDescOnce sync.Once

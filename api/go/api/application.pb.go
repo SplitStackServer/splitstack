@@ -4951,8 +4951,8 @@ const file_api_application_proto_rawDesc = "" +
 	"\x16DeleteIftttIntegration\x12\".api.DeleteIftttIntegrationRequest\x1a\x16.google.protobuf.Empty\"=\x82\xd3\xe4\x93\x027*5/api/applications/{application_id}/integrations/ifttt\x12\xe1\x01\n" +
 	"(GenerateMqttIntegrationClientCertificate\x124.api.GenerateMqttIntegrationClientCertificateRequest\x1a5.api.GenerateMqttIntegrationClientCertificateResponse\"H\x82\xd3\xe4\x93\x02B\"@/api/applications/{application_id}/integrations/mqtt/certificate\x12\xa7\x01\n" +
 	"\x12ListDeviceProfiles\x12).api.ListApplicationDeviceProfilesRequest\x1a*.api.ListApplicationDeviceProfilesResponse\":\x82\xd3\xe4\x93\x024\x122/api/applications/{application_id}/device-profiles\x12\x97\x01\n" +
-	"\x0eListDeviceTags\x12%.api.ListApplicationDeviceTagsRequest\x1a&.api.ListApplicationDeviceTagsResponse\"6\x82\xd3\xe4\x93\x020\x12./api/applications/{application_id}/device-tagsB\x96\x01\n" +
-	"\x11io.chirpstack.apiB\x10ApplicationProtoP\x01Z.github.com/chirpstack/chirpstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
+	"\x0eListDeviceTags\x12%.api.ListApplicationDeviceTagsRequest\x1a&.api.ListApplicationDeviceTagsResponse\"6\x82\xd3\xe4\x93\x020\x12./api/applications/{application_id}/device-tagsB\x9c\x01\n" +
+	"\x11io.chirpstack.apiB\x10ApplicationProtoP\x01Z4github.com/SplitStackServer/splitstack/api/go/v4/api\xaa\x02\x0eChirpstack.Api\xca\x02\x0eChirpstack\\Api\xe2\x02\x1aGPBMetadata\\Chirpstack\\Apib\x06proto3"
 
 var (
 	file_api_application_proto_rawDescOnce sync.Once
