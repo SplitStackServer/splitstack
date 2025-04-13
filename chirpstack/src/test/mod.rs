@@ -74,6 +74,8 @@ pub async fn prepare<'a>() -> std::sync::MutexGuard<'a, ()> {
                 },
             },
         },
+        //TODO RegionBasestation default for now
+        basestation: config::RegionBasestation::default(),
     }];
     config::set(conf);
 
