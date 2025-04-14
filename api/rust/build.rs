@@ -95,13 +95,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     #[cfg(feature = "json")]
     {
-        let descriptor_set = std::fs::read(out_dir.join("gw").join("proto_descriptor.bin"))?;
+        let descriptor_set = std::fs::read(out_dir.join("bs").join("proto_descriptor.bin"))?;
         pbjson_build::Builder::new()
             .register_descriptors(&descriptor_set)?
             .ignore_unknown_fields()
-            .out_dir(out_dir.join("gw"))
+            .out_dir(out_dir.join("bs"))
             .extern_path(".common", "crate::common")
-            .build(&[".gw"])?;
+            .build(&[".bs"])?;
     }
 
     // internal

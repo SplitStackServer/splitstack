@@ -22,6 +22,7 @@ pub struct Configuration {
     pub sqlite: Sqlite,
     pub api: Api,
     pub gateway: Gateway,
+    pub basestation: Basestation,
     pub network: Network,
     pub monitoring: Monitoring,
     pub integration: Integration,
@@ -143,6 +144,30 @@ pub struct Gateway {
 impl Default for Gateway {
     fn default() -> Self {
         Gateway {
+            client_cert_lifetime: Duration::from_secs(60 * 60 * 24 * 365),
+            ca_cert: "".to_string(),
+            ca_key: "".to_string(),
+            allow_unknown_gateways: false,
+        }
+    }
+}
+
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(default)]
+pub struct Basestation {
+    pub enable: bool,
+    #[serde(with = "humantime_serde")]
+    pub client_cert_lifetime: Duration,
+    pub ca_cert: String,
+    pub ca_key: String,
+    pub allow_unknown_gateways: bool,
+}
+
+impl Default for Basestation {
+    fn default() -> Self {
+        Basestation {
+            enable: false,
             client_cert_lifetime: Duration::from_secs(60 * 60 * 24 * 365),
             ca_cert: "".to_string(),
             ca_key: "".to_string(),
@@ -597,6 +622,7 @@ pub struct Region {
     pub user_info: String,
     pub network: RegionNetwork,
     pub gateway: RegionGateway,
+    pub basestation: RegionBasestation,
 }
 
 impl Default for Region {
@@ -608,6 +634,7 @@ impl Default for Region {
             user_info: "".into(),
             network: RegionNetwork::default(),
             gateway: RegionGateway::default(),
+            basestation: RegionBasestation::default(),
         }
     }
 }
@@ -744,7 +771,7 @@ impl Default for GatewayBackendMqtt {
             tls_key: "".into(),
             keep_alive_interval: Duration::from_secs(30),
             v4_migrate: false,
-            share_name: "chirpstack".into(),
+            share_name: "chirpstack_gw".into(),
         }
     }
 }
@@ -775,6 +802,64 @@ impl Default for GatewayChannel {
             modulation: GatewayChannelModulation::LORA,
             spreading_factors: vec![],
             datarate: 0,
+        }
+    }
+}
+
+
+#[derive(Default, Serialize, Deserialize, Clone)]
+#[serde(default)]
+pub struct RegionBasestation{
+    pub force_bs_private: bool,
+    pub backend: BasestationBackend,
+}
+
+#[derive(Default, Serialize, Deserialize, Clone)]
+#[serde(default)]
+pub struct BasestationBackend {
+    pub enabled: String,
+    pub mqtt: BasestationBackendMqtt,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(default)]
+pub struct BasestationBackendMqtt {
+    pub topic_prefix: String,
+    pub event_topic: String,
+    pub command_topic: String,
+    pub response_topic: String,
+    pub server: String,
+    pub username: String,
+    pub password: String,
+    pub qos: usize,
+    pub clean_session: bool,
+    pub client_id: String,
+    pub ca_cert: String,
+    pub tls_cert: String,
+    pub tls_key: String,
+    #[serde(with = "humantime_serde")]
+    pub keep_alive_interval: Duration,
+    pub share_name: String,
+}
+
+impl Default for BasestationBackendMqtt {
+    fn default() -> Self {
+        BasestationBackendMqtt {
+            topic_prefix: "".into(),
+            event_topic: "".into(),
+            command_topic: "".into(),
+            response_topic: "".into(),
+            server: "tcp://127.0.0.1:1883/".into(),
+            username: "".into(),
+            password: "".into(),
+            qos: 0,
+            clean_session: false,
+            client_id: "".into(),
+            ca_cert: "".into(),
+            tls_cert: "".into(),
+            tls_key: "".into(),
+            keep_alive_interval: Duration::from_secs(30),
+            share_name: "chirpstack_bs".into(),
         }
     }
 }

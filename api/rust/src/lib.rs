@@ -8,6 +8,7 @@ pub use tonic;
 pub mod api;
 pub mod common;
 pub mod gw;
+pub mod bs;
 pub mod integration;
 #[cfg(feature = "internal")]
 pub mod internal;

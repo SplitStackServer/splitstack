@@ -8,27 +8,24 @@ use tokio::sync::RwLock;
 pub mod mock;
 
 lazy_static! {
-    static ref BACKENDS: RwLock<HashMap<String, Box<dyn GatewayBackend + Sync + Send>>> =
+    static ref BACKENDS: RwLock<HashMap<String, Box<dyn BasestationBackend + Sync + Send>>> =
         RwLock::new(HashMap::new());
 }
 
 #[async_trait]
-pub trait GatewayBackend {
-    async fn send_downlink(&self, df: &chirpstack_api::gw::DownlinkFrame) -> Result<()>;
-    async fn send_configuration(
-        &self,
-        gw_conf: &chirpstack_api::gw::GatewayConfiguration,
-    ) -> Result<()>;
+pub trait BasestationBackend {
+    async fn send_command(&self, cmd: &chirpstack_api::bs::ProtoCommand) -> Result<()>;
+    async fn send_response(&self, rsp: &chirpstack_api::bs::ProtoResponse) -> Result<()>;
 }
 
-pub async fn set_backend(region_config_id: &str, b: Box<dyn GatewayBackend + Sync + Send>) {
+pub async fn set_backend(region_config_id: &str, b: Box<dyn BasestationBackend + Sync + Send>) {
     let mut b_w = BACKENDS.write().await;
     b_w.insert(region_config_id.to_string(), b);
 }
 
-pub async fn send_downlink(
+pub async fn send_command(
     region_config_id: &str,
-    df: &chirpstack_api::gw::DownlinkFrame,
+    cmd: &chirpstack_api::bs::ProtoCommand,
 ) -> Result<()> {
     let b_r = BACKENDS.read().await;
     let b = b_r.get(region_config_id).ok_or_else(|| {
@@ -38,14 +35,14 @@ pub async fn send_downlink(
         )
     })?;
 
-    b.send_downlink(df).await?;
+    b.send_command(cmd).await?;
 
     Ok(())
 }
 
-pub async fn send_configuration(
+pub async fn send_response(
     region_config_id: &str,
-    gw_conf: &chirpstack_api::gw::GatewayConfiguration,
+    rsp: &chirpstack_api::bs::ProtoResponse,
 ) -> Result<()> {
     let b_r = BACKENDS.read().await;
     let b = b_r.get(region_config_id).ok_or_else(|| {
@@ -55,7 +52,7 @@ pub async fn send_configuration(
         )
     })?;
 
-    b.send_configuration(gw_conf).await?;
+    b.send_response(rsp).await?;
 
     Ok(())
 }

@@ -19,7 +19,7 @@ pub async fn run() -> Result<()> {
     backend::setup().await?;
     adr::setup().await?;
     integration::setup().await?;
-    gateway::backend::setup().await?;
+    gateway::setup().await?;
     downlink::setup().await;
     fuota::setup().await;
     api::setup().await?;
