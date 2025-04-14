@@ -7,9 +7,7 @@ use std::time::Duration;
 
 use anyhow::Result;
 use async_trait::async_trait;
-use chirpstack_api::bs::ProtoBasestationMessage;
 use chrono::Utc;
-use futures::future::BoxFuture;
 use handlebars::Handlebars;
 use prometheus_client::encoding::EncodeLabelSet;
 use prometheus_client::metrics::counter::Counter;
@@ -65,6 +63,8 @@ lazy_static! {
         counter
     };
     static ref GATEWAY_JSON: RwLock<HashMap<String, bool>> = RwLock::new(HashMap::new());
+    // A (hybrid) gateway can support both LoRaWAN and mioty
+    static ref BASESTATION_JSON: RwLock<HashMap<String, bool>> = RwLock::new(HashMap::new());
 }
 
 pub struct MqttBackend<'a> {
@@ -235,7 +235,7 @@ impl<'a> MqttBackend<'a> {
         templates.register_template_string(
             "command_topic",
             if conf.command_topic.is_empty() {
-                let command_topic = "gateway/{{ gateway_id }}/command/{{ command }}".to_string();
+                let command_topic = "bssci/{{ gateway_id }}/command/{{ command }}".to_string();
                 if conf.topic_prefix.is_empty() {
                     command_topic
                 } else {
@@ -298,7 +298,12 @@ impl<'a> MqttBackend<'a> {
         b.spawn_subscribe_loop(event_topic, &conf.share_name, connect_rx);
 
         // Eventloop
-        b.spawn_event_loop(region_common_name, eventloop, connect_tx, basestation_callback);
+        b.spawn_event_loop(
+            region_common_name,
+            eventloop,
+            connect_tx,
+            basestation_callback,
+        );
 
         // return backend
         Ok(b)
@@ -591,17 +596,152 @@ async fn gateway_callback(
     }
 }
 
-
 #[async_trait]
 impl BasestationBackend for MqttBackend<'_> {
     async fn send_command(&self, cmd: &chirpstack_api::bs::ProtoCommand) -> Result<()> {
-        todo!();
+        if let Some(v1) = &cmd.v1 {
+            let subtopic = match v1 {
+                chirpstack_api::bs::proto_command::V1::DlDataQue(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/dlDataQue".to_string(),
+                        })
+                        .inc();
+                    "dlDataQue"
+                }
+                chirpstack_api::bs::proto_command::V1::DlDataRev(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/dlDataRev".to_string(),
+                        })
+                        .inc();
+                    "dlDataRev"
+                }
+
+                chirpstack_api::bs::proto_command::V1::DlRxStatQry(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/dlRxStatQry".to_string(),
+                        })
+                        .inc();
+                    "dlRxStatQry"
+                }
+                chirpstack_api::bs::proto_command::V1::AttPrp(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/attPrp".to_string(),
+                        })
+                        .inc();
+                    "attPrp"
+                }
+                chirpstack_api::bs::proto_command::V1::DetPrp(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/detPrp".to_string(),
+                        })
+                        .inc();
+                    "detPrp"
+                }
+                chirpstack_api::bs::proto_command::V1::ReqStatus(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/reqStatus".to_string(),
+                        })
+                        .inc();
+                    "reqStatus"
+                }
+                chirpstack_api::bs::proto_command::V1::VmActivate(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/vmActivate".to_string(),
+                        })
+                        .inc();
+                    "vm"
+                }
+                chirpstack_api::bs::proto_command::V1::VmDeactivate(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/vmDeactivate".to_string(),
+                        })
+                        .inc();
+                    "vm"
+                }
+                chirpstack_api::bs::proto_command::V1::VmStatus(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/vmStatus".to_string(),
+                        })
+                        .inc();
+                    "vm"
+                }
+            };
+
+            let topic = self.get_command_topic(&cmd.bs_eui, subtopic)?;
+
+            let json = gateway_is_json(&cmd.bs_eui);
+
+            let b = match json {
+                true => serde_json::to_vec(&cmd)?,
+                false => cmd.encode_to_vec(),
+            };
+
+            info!(region_id = %self.region_config_id, gateway_id = %cmd.bs_eui, topic = %topic, json = json, "Sending command to basestation");
+            self.client.publish(topic, self.qos, false, b).await?;
+            trace!("Message published");
+
+            return Ok(());
+        }
+
+        Err(anyhow!("Empty command"))
     }
 
-    async fn send_response(&self,  rsp: &chirpstack_api::bs::ProtoResponse) -> Result<()> {
-        todo!();
+    async fn send_response(&self, rsp: &chirpstack_api::bs::ProtoResponse) -> Result<()> {
+        if let Some(v1) = &rsp.v1 {
+            let subtopic = match v1 {
+                chirpstack_api::bs::proto_response::V1::AttRsp(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/attRsp".to_string(),
+                        })
+                        .inc();
+                    "attRsp"
+                }
+                chirpstack_api::bs::proto_response::V1::DetRsp(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/detRsp".to_string(),
+                        })
+                        .inc();
+                    "detRsp"
+                }
+                chirpstack_api::bs::proto_response::V1::Err(_) => {
+                    COMMAND_COUNTER
+                        .get_or_create(&CommandLabels {
+                            command: "bs/err".to_string(),
+                        })
+                        .inc();
+                    "err"
+                }
+            };
+
+            let topic = self.get_response_topic(&rsp.bs_eui, subtopic)?;
+
+            let json = gateway_is_json(&rsp.bs_eui);
+
+            let b = match json {
+                true => serde_json::to_vec(&rsp)?,
+                false => rsp.encode_to_vec(),
+            };
+
+            info!(region_id = %self.region_config_id, gateway_id = %rsp.bs_eui, topic = %topic, json = json, "Sending response to basestation");
+            self.client.publish(topic, self.qos, false, b).await?;
+            trace!("Message published");
+
+            return Ok(());
+        }
+
+        Err(anyhow!("Empty response"))
     }
-    
 }
 
 async fn basestation_callback(
@@ -633,6 +773,8 @@ async fn basestation_callback(
                     &p.payload,
                 ))?,
             };
+
+            set_basestation_json(&event.bs_eui, json);
 
             if let Some(v1) = event.v1 {
                 match v1 {
@@ -677,65 +819,64 @@ async fn basestation_callback(
                 }
             };
 
+            set_basestation_json(&event.bs_eui, json);
+
             if let Some(v1) = event.v1 {
                 match v1 {
                     chirpstack_api::bs::proto_endnode_message::V1::Att(endnode_att_message) => {
                         EVENT_COUNTER
-                        .get_or_create(&EventLabels {
-                            event: "ep/att".to_string(),
-                        })
-                        .inc();
+                            .get_or_create(&EventLabels {
+                                event: "bs/att".to_string(),
+                            })
+                            .inc();
                     }
                     chirpstack_api::bs::proto_endnode_message::V1::Det(endnode_det_message) => {
                         EVENT_COUNTER
-                        .get_or_create(&EventLabels {
-                            event: "ep/det".to_string(),
-                        })
-                        .inc();
+                            .get_or_create(&EventLabels {
+                                event: "bs/det".to_string(),
+                            })
+                            .inc();
                     }
                     chirpstack_api::bs::proto_endnode_message::V1::UlData(
                         endnode_ul_data_message,
                     ) => {
                         EVENT_COUNTER
-                        .get_or_create(&EventLabels {
-                            event: "ep/ul_data".to_string(),
-                        })
-                        .inc();
+                            .get_or_create(&EventLabels {
+                                event: "bs/ul_data".to_string(),
+                            })
+                            .inc();
                     }
                     chirpstack_api::bs::proto_endnode_message::V1::DlRxStat(
                         endnode_downlink_rx_status,
                     ) => {
                         EVENT_COUNTER
-                        .get_or_create(&EventLabels {
-                            event: "ep/rx_status".to_string(),
-                        })
-                        .inc();
+                            .get_or_create(&EventLabels {
+                                event: "bs/rx_status".to_string(),
+                            })
+                            .inc();
                     }
                     chirpstack_api::bs::proto_endnode_message::V1::DlRes(
                         endnode_downlink_result,
                     ) => {
                         EVENT_COUNTER
-                        .get_or_create(&EventLabels {
-                            event: "ep/dl_result".to_string(),
-                        })
-                        .inc();
+                            .get_or_create(&EventLabels {
+                                event: "bs/dl_result".to_string(),
+                            })
+                            .inc();
                     }
                     chirpstack_api::bs::proto_endnode_message::V1::VmUlData(
                         endnode_variable_mac_ul_data_message,
                     ) => {
                         EVENT_COUNTER
-                        .get_or_create(&EventLabels {
-                            event: "ep/vm_ul_data".to_string(),
-                        })
-                        .inc();
+                            .get_or_create(&EventLabels {
+                                event: "bs/vm_ul_data".to_string(),
+                            })
+                            .inc();
                     }
-
                 }
             } else {
                 return Err(anyhow!("Unknown endpoint event type"));
             }
-
-           
         } else {
             return Err(anyhow!("Unknown event type"));
         }
@@ -763,6 +904,16 @@ fn gateway_is_json(gateway_id: &str) -> bool {
 fn set_gateway_json(gateway_id: &str, is_json: bool) {
     let mut gw_json_w = GATEWAY_JSON.write().unwrap();
     gw_json_w.insert(gateway_id.to_string(), is_json);
+}
+
+fn basestation_is_json(bs_eui: &str) -> bool {
+    let bs_json_r = BASESTATION_JSON.read().unwrap();
+    bs_json_r.get(bs_eui).cloned().unwrap_or(false)
+}
+
+fn set_basestation_json(bs_eui: &str, is_json: bool) {
+    let mut bs_json_w = BASESTATION_JSON.write().unwrap();
+    bs_json_w.insert(bs_eui.to_string(), is_json);
 }
 
 fn payload_is_json(b: &[u8]) -> bool {
